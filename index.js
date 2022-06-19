@@ -1,42 +1,29 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import "dotenv/config";
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+
+import productsRouter from './routes/products.js';
+import { appConfig, dbConfig } from './config/config.js';
 
 const app = express();
+// parse json request body
+app.use(express.json());
 
-app.use(cors())
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
 
-const products = [
-    {"id":1,"product_name":"Pennn","product_price":"200", "category": "Grocery", "image": "images/1.jpg"},
-];
+app.use(cors());
 
-mongoose.connect(process.env.DB_URL,
-    {useNewUrlParser: true},  
-    {useUnifiedTopology: true},
-    () => {console.log("connected mongo db")}
-)
+app.use('/products', productsRouter);
 
-const ProductsSchema = new mongoose.Schema({
-    product_name: {type: String},
-    product_price: {type: String},
-    category: {type: String},
-})
+mongoose.connect(dbConfig.dbUrl, (err) => {
+  if (err) {
+    console.error(err);
+    process.exit();
+  }
 
-const Products =  mongoose.model("Products", ProductsSchema)
-
-app.get("/", (req, res) => {
-    res.send(products)
+  // start the Express server
+  app.listen(appConfig.port, () => {
+    console.log(`Server is running on port: ${appConfig.port}`);
+  });
 });
-
-app.get("/products", (req, res) => {
-    const products1 = Products.find({})
-    console.log(products1)
-    res.send(products1)
-});
-
-app.get("/products", (req, res) => {
-    res.send(products)
-});
-
-app.listen(process.env.Port);
