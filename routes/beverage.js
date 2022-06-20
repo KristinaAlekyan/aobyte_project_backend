@@ -5,13 +5,13 @@ const router = express.Router();
 
 /**
  * 
- * get all products which category is grocery
+ * get all products which category is beverage
  * */
 
 router.get('/', async (req, res, next) => {
-  const filter = {category: "Groceries"};
-  const grocery = await productService.findAll(filter);
-  res.status(200).json({ data: grocery });
+  const filter = {category: "Beverages"};
+  const beverage = await productService.findAll(filter);
+  res.status(200).json({ data: beverage });
 });
 
 export default router;
