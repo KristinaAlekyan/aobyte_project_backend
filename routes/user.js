@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 /* create new user */
 
 router.post('/', async (req, res, next) => {
-    const { firstName, lastName, email, password, confirmPassword } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const filter = {};
     const users = await userService.find(filter);
     let count = 0;
@@ -22,20 +22,16 @@ router.post('/', async (req, res, next) => {
             count +=1;
             break
         }
-    }
-    
-    if(password === confirmPassword && count === 0){
+    }    
+    if(count === 0){
         const result = await userService.createUser({
             firstName,
             lastName,
             email,
-            password,
-            confirmPassword
+            password
         });
         res.status(200).json({ result });
-
-    } else res.status(400)
-    
+    } else res.status(400).json({ghj:"error"})  
 });
 
 export default router;
