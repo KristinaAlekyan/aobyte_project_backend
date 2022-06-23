@@ -4,14 +4,24 @@ import userService from '../services/userService.js';
 
 const router = express.Router();
 
-/* get one user and log in  */
+router.post('/', async (req, res, next) => {   
+    const {email, password} = req.body;
+    
+    const filter = {email: email};
 
-router.get('/', async (req, res, next) => {   
-    //????? How take from req.body filter email: ????
-    const filter = {};
-    console.log(filter)
-    const user = await userService.find(filter);
-    res.status(200).json({ data: user });
+    const users = await userService.find(filter);
+    
+    if(users.length){
+        if(password === users[0].password){
+            res.send({message:"login sucess", user:users[0]});
+        } else {
+            res.send({message:"wrong credentials"})
+        }
+    } else {
+        res.send({ message: "Email not found" });
+    }
+
+    
 });
 
 export default router;

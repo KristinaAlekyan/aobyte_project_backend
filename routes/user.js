@@ -30,8 +30,8 @@ router.post('/', async (req, res, next) => {
             email,
             password
         });
-        res.status(200).json({ result });
-    } else res.status(400).json({ghj:"error"})  
+        res.status(200).json({ user : result, message : "Registerd" });
+    } else res.status(400).json({message:"Fail registration"})  
 });
 
 export default router;
