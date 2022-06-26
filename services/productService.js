@@ -1,10 +1,11 @@
-import { Product } from '../models/product.js';
+import ProductModel from "../models/product.js"
 
-function findAll(filter) {
-  return Product.find(filter).exec();
-}
-function createProduct(productDto) {
-  return Product.create(productDto);
+const findAllProducts = async (filter) => {
+    return await ProductModel.find(filter)
 }
 
-export default { findAll, createProduct };
+const findSingleProduct = async (_id) => {
+    return await ProductModel.findOne({ _id })
+}
+
+export { findAllProducts, findSingleProduct }

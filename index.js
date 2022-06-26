@@ -1,12 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 
-import productsRouter from './routes/products.js';
-import householdRouter from './routes/household.js';
-import groceryRouter from './routes/grocery.js';
-import personalcareRouter from './routes/personalcare.js';
-import beverageRouter from './routes/beverage.js';
+import router from "./router/index.js";
 import { appConfig, dbConfig } from './config/config.js';
 
 const app = express();
@@ -18,24 +15,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
-app.use('/products', productsRouter);
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/category/household', householdRouter);
-
-app.use('/category/grocery', groceryRouter);
-
-app.use('/category/personalcare', personalcareRouter);
-
-app.use('/category/beverage', beverageRouter);
+app.use("/", router)
 
 mongoose.connect(dbConfig.dbUrl, (err) => {
-  if (err) {
-    console.error(err);
-    process.exit();
-  }
+    if (err) {
+        console.error(err);
+        process.exit();
+    }
 
-  // start the Express server
-  app.listen(appConfig.port, () => {
-    console.log(`Server is running on port: ${appConfig.port}`);
-  });
+    // start the Express server
+    app.listen(appConfig.port, () => {
+        console.log(`Server is running on port: ${appConfig.port}`);
+    });
 });
