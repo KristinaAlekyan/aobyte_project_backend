@@ -1,11 +1,11 @@
 import CategoryModel from "../models/category.js"
 
-const findAllCategories = async (filter) => {
+const getAllCategoriesService = async (filter) => {
     return await CategoryModel.find(filter)
 }
 
-const findSingleCategory = async (_id) => {
+const getSingleCategoryService = async (_id) => {
     return await CategoryModel.findOne({ _id })
 }
 
-export { findAllCategories, findSingleCategory }
+export { getAllCategoriesService, getSingleCategoryService }

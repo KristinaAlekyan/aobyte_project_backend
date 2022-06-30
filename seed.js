@@ -14,11 +14,13 @@ const seedProducts = [
     {
         name: "Pennn",
         price: "250",
+        category:"1",
         image:"https://officekit.am/wp-content/uploads/2020/06/13183205_1020794494675470_1494654795_n-1.jpg"
     },
     {
         name: "Fork",
         price: "1000",
+        category:"1",
         image:"https://m.media-amazon.com/images/I/61h743o6naL._AC_SL1500_.jpg"
     },
     {
@@ -34,21 +36,22 @@ const seedProducts = [
     {
         name: "Spoon",
         price: "1000",
+        category:"1",
         image:"https://englishlib.org/dictionary/img/wlibrary/s/60479c43ef8671.22183642.jpg"
     }    
 ]
 
 const seedCategories = [
-    {
+    {   id:"1",
         name: "Househould"
     },
-    {
+    {   id:"2", 
         name: "Personal Care"
     },
-    {
+    {   id:"3",
         name: "Beverage"
     },
-    {
+    {   id:"4",
         name: "Grocery"
     }
 ]
