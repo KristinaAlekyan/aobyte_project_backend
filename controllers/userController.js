@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 
-import { registrationUser, loginUser } from "../services/userService.js";
+import { registrationUser, loginUser, getAllUsersService, activateService } from "../services/userService.js";
 import ApiError from "../errors/apiError.js";
 import UserModel from "../models/user.js";
 
@@ -29,7 +29,26 @@ const login = async (req, res, next) => {
     }
 }
 
+const getAllUsers = async (req, res, next) => {
+    try {
+        const filter ={}
+        const users = await getAllUsersService(filter);
+        return res.json(users)
+    } catch (e) {
+        next(e)
+    }
+}
 
-export { register, login }
+const activate = async(req, res, next)=>{
+    try {
+        const activationLink = req.params.link
+        await activateService(activationLink)
+        return res.redirect(process.env.CLIENT_URL)
+    } catch (e) {
+        next(e)
+    }
+}
+
+export { register, login, getAllUsers, activate}
 
 

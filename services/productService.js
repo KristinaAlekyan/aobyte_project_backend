@@ -20,7 +20,6 @@ const updateProductService = async (id, name, price, image, category,) => {
                 image: image,
                 category: category
             },
-
         })
     return {
         editProduct,
