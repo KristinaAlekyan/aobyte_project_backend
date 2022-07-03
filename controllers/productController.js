@@ -3,12 +3,14 @@ import { getAllProductsService, getSingleProductService, addProductService,
 
 const getAllProducts = async (req, res, next) => {
     try {
+        const { query } = req;
         const filter = {};
-        const query = req.query.category;
-        const products = await getAllProductsService(query);
-        return res.json({ data: products })
+        const sort = {}
+        const books = await getAllProductsService( filter, query, sort)
+        return res.json({data: books})
     }
     catch (e) {
+        res.json(e)
         next(e)
     }
 }

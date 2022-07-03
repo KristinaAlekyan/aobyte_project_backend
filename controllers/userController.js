@@ -49,6 +49,8 @@ const activate = async(req, res, next)=>{
     }
 }
 
+
+
 export { register, login, getAllUsers, activate}
 
 
