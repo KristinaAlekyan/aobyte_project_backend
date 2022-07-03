@@ -1,29 +1,18 @@
-import { getAllProductsService, getSingleProductService, addProductService, 
-         updateProductService, deleteProductService } from "../services/productService.js"
+import {
+    getAllProductsService, getSingleProductService, addProductService,
+    updateProductService, deleteProductService
+} from "../services/productService.js"
 
 const getAllProducts = async (req, res, next) => {
     try {
         const { query } = req;
         const filter = {};
         const sort = {}
-        const books = await getAllProductsService( filter, query, sort)
-        return res.json({data: books})
-    }
-    catch (e) {
-        res.json(e)
-        next(e)
-    }
-}
-
-const getFilteredProducts = async (req, res, next) => {
-    try {
-        const id = req.params.categoryId;
-        const filter = {category: id};
-        const products = await getAllProductsService(filter);
-
+        const products = await getAllProductsService(filter, query, sort)
         return res.json({ data: products })
     }
     catch (e) {
+        res.json(e)
         next(e)
     }
 }
@@ -69,4 +58,4 @@ const deleteProduct = async (req, res, next) => {
     }
 }
 
-export { getAllProducts, getFilteredProducts, getSingleProduct, addProduct, updateProduct, deleteProduct }
+export { getAllProducts, getSingleProduct, addProduct, updateProduct, deleteProduct }

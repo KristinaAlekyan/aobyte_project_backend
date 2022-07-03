@@ -1,6 +1,6 @@
 import ProductModel from "../models/product.js"
 
-const getAllProductsService = async ( filter, query, sort) => {
+const getAllProductsService = async (filter, query, sort) => {
     if (query.sort) {
         switch (query.sort) {
             case 'asc':
@@ -16,10 +16,10 @@ const getAllProductsService = async ( filter, query, sort) => {
         filter.$or = [{ name: searchReg }];
     }
 
-    const books = await ProductModel.find(filter)
+    const products = await ProductModel.find(filter)
         .sort(sort)
 
-    return books
+    return products
 }
 
 const getSingleProductService = async (_id) => {
