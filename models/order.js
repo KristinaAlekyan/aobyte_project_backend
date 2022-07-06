@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 // Order Schema
 
 const OrderSchema = new mongoose.Schema({
-    createdAt: { type: Date, required: true },
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
@@ -14,7 +13,7 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
-});
+}, { timestamps: true });
 
 const Order = mongoose.model('Order', OrderSchema);
 

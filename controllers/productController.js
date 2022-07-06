@@ -6,7 +6,11 @@ import {
 const getAllProducts = async (req, res, next) => {
     try {
         const { query } = req;
-        const filter = {};
+        const category = query.category
+        let filter
+        if(category){
+            filter = {category}
+        } else filter ={}
         const sort = {}
         const products = await getAllProductsService(filter, query, sort)
         return res.json({ data: products })

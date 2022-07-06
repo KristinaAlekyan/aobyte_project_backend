@@ -1,9 +1,9 @@
 import express from "express";
 
 import { getAllProducts, getSingleProduct, addProduct, updateProduct, deleteProduct } from "../controllers/productController.js";
-import { getAllCategories, getSingleCategory } from "../controllers/categoryController.js";
+import { getAllCategories, getCategoryById } from "../controllers/categoryController.js";
 import { register, login, getAllUsers, activate } from "../controllers/userController.js";
-import { addOrder, getAllOrders } from "../controllers/orderController.js";
+import { createOrder, getOrders } from "../controllers/orderController.js";
 import checkAuth from "../middlewares/authMiddleware.js"
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.patch("/products/:productId", updateProduct);
 router.delete("/products/:productId", deleteProduct);
 
 router.get("/categories", getAllCategories);
-router.get("/categories/:categoryId", getSingleCategory);
+router.get("/categories/:categoryId", getCategoryById);
 router.post("/register", register);
 router.post("/login", login);
 
@@ -23,8 +23,8 @@ router.get("/users", checkAuth, getAllUsers)
 
 //router.get("/activate/:link", activate)
 
-router.get("/orders", getAllOrders);
-router.post("/orders", addOrder);
+router.get("/orders", checkAuth, getOrders);
+router.post("/orders", checkAuth, createOrder);
 
 
 

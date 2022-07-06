@@ -1,4 +1,4 @@
-import { getAllCategoriesService, getSingleCategoryService } from "../services/categoryService.js"
+import { getAllCategoriesService, getCategoryByIdService } from "../services/categoryService.js"
 
 const getAllCategories = async (req, res, next) => {
     try {
@@ -11,14 +11,14 @@ const getAllCategories = async (req, res, next) => {
     }
 }
 
-const getSingleCategory = async (req, res, next) => {
+const getCategoryById = async (req, res, next) => {
     try {
         const id = req.params.categoryId
-        const singleCategory = await getSingleCategoryService(id)
-        return res.json({ data: singleCategory })
+        const category = await getCategoryByIdService(id)
+        return res.json({ data: category })
     } catch (e) {
         next(e)
     }
 }
 
-export { getAllCategories, getSingleCategory }
+export { getAllCategories, getCategoryById }

@@ -4,8 +4,8 @@ const getAllCategoriesService = async (filter) => {
     return await CategoryModel.find(filter)
 }
 
-const getSingleCategoryService = async (_id) => {
+const getCategoryByIdService = async (_id) => {
     return await CategoryModel.findOne({ _id })
 }
 
-export { getAllCategoriesService, getSingleCategoryService }
+export { getAllCategoriesService, getCategoryByIdService }

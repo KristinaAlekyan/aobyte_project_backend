@@ -16,8 +16,8 @@ const getAllProductsService = async (filter, query, sort) => {
         filter.$or = [{ name: searchReg }];
     }
 
-    const products = await ProductModel.find(filter)
-        .sort(sort)
+    const products = await ProductModel.find(filter).sort(sort).populate("category").exec()
+        
 
     return products
 }
@@ -30,7 +30,7 @@ const addProductService = async (name, price, image, category) => {
 }
 
 const updateProductService = async (id, name, price, image, category,) => {
-    const editProduct = await ProductModel.updateOne({ _id: id },
+    const updatedProduct = await ProductModel.updateOne({ _id: id },
         {
             $set: {
                 name: name,
@@ -40,14 +40,12 @@ const updateProductService = async (id, name, price, image, category,) => {
             },
         })
     return {
-        editProduct,
+        updatedProduct,
     }
 }
 
 const deleteProductService = async (_id) => {
-    const deletedProduct = await ProductModel.deleteOne({ _id });
-
-    return deletedProduct
+    return await ProductModel.deleteOne({ _id });
 }
 
 export { getAllProductsService, getSingleProductService, addProductService, updateProductService, deleteProductService }

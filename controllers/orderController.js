@@ -1,20 +1,20 @@
-import { addOrderService, getOrdersService } from "../services/orderService.js"
+import { createOrderService, getOrdersService } from "../services/orderService.js"
 
-
-const addOrder = async (req, res, next) => {
+const createOrder = async (req, res, next) => {
     try {
-        const { createdAt, product, quantity, price, user } = req.body;
-        const order = await addOrderService(createdAt, product, quantity, price, user)
+        const { product, quantity, price, user } = req.body;
+        const order = await createOrderService( product, quantity, price, user)
         return res.json(order)
     } catch (e) {
         next(e)
     }
 }
 
-const getAllOrders = async (req, res, next) => {
+const getOrders = async (req, res, next) => {
     try {
         const { query } = req;
-        const filter = {};
+        const user = query.user
+        const filter = {user};
         const orders = await getOrdersService(filter);
         return res.json({ data: orders })
     }
@@ -23,4 +23,4 @@ const getAllOrders = async (req, res, next) => {
         next(e)
     }
 }
-export { addOrder, getAllOrders }
+export { createOrder, getOrders }
